@@ -40,6 +40,19 @@ jobs:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo (for docker-compose.yml)
+        uses: actions/checkout@v4
+
+      - name: Upload docker-compose.yml to VM
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VM_SSH_PORT }}
+          source: "docker-compose.yml"
+          target: "~/discover_deploy/"
+
       - name: Deploy to VM via SSH
         uses: appleboy/ssh-action@v0.1.8
         with:
@@ -48,6 +61,8 @@ jobs:
           port: ${{ secrets.VM_SSH_PORT }}
           key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
           script: |
-            cd ~/discover_deploy || mkdir -p ~/discover_deploy && cd ~/discover_deploy
+            mkdir -p ~/discover_deploy
+            cd ~/discover_deploy
             docker compose pull
             docker compose up -d --remove-orphans
+            docker system prune -f
