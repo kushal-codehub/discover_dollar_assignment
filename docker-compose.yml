@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   mongo:
     image: mongo:6.0
@@ -7,7 +6,7 @@ services:
       - mongo_data:/data/db
 
   backend:
-    image: DOCKERHUB_USERNAME/discover-dollars-backend:latest
+    image: ${DOCKERHUB_USERNAME}/discover-dollars-backend:latest
     restart: unless-stopped
     environment:
       - MONGO_URI=mongodb://mongo:27017/tutorials_db
@@ -20,7 +19,7 @@ services:
       - "8080:8080"
 
   frontend:
-    image: DOCKERHUB_USERNAME/discover-dollars-frontend:latest
+    image: ${DOCKERHUB_USERNAME}/discover-dollars-frontend:latest
     restart: unless-stopped
     depends_on:
       - backend
