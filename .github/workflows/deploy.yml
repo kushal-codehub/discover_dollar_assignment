@@ -1,8 +1,8 @@
 name: Build and Deploy
 
 on:
-  #push:
-    #branches: [ main ]
+  push:
+    branches: [ main ]
 
 jobs:
   build-and-push:
@@ -48,6 +48,5 @@ jobs:
           key: ${{ secrets.VM_SSH_PRIVATE_KEY }}
           script: |
             cd ~/discover_deploy || mkdir -p ~/discover_deploy && cd ~/discover_deploy
-            # ensure docker-compose.yml in this dir (you can keep it in repo and clone/pull)
             docker compose pull
             docker compose up -d --remove-orphans
