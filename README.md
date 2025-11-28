@@ -209,21 +209,3 @@ Or run with Docker:
 ```bash
 docker compose up --build
 ```
-
-## Conclusion
-
-This project demonstrates complete DevOps lifecycle:
-
-- Containerization
-- Multi-service orchestration
-- Reverse proxy routing
-- CI/CD automation
-- Cloud deployment
-- Environment configuration
-
-This setup can be expanded with:
-
-- HTTPS termination
-- Load balancers
-- Monitoring/Logging stack
-- Infrastructure-as-Code
