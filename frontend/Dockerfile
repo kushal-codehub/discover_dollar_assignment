@@ -12,7 +12,7 @@ FROM nginx:stable-alpine
 # remove default html
 RUN rm -rf /usr/share/nginx/html/*
 # copy built Angular app - adjust dist/<project-name> if needed
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=build /app/dist/angular-15-crud /usr/share/nginx/html
 
 # copy custom nginx config
 COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
