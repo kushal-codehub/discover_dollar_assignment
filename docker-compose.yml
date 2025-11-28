@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  mongo:
+    image: mongo:6.0
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    image: DOCKERHUB_USERNAME/discover-dollars-backend:latest
+    restart: unless-stopped
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/tutorials_db
+      - PORT=8080
+    depends_on:
+      - mongo
+    networks:
+      - appnet
+    ports:
+      - "8080:8080"
+
+  frontend:
+    image: DOCKERHUB_USERNAME/discover-dollars-frontend:latest
+    restart: unless-stopped
+    depends_on:
+      - backend
+    networks:
+      - appnet
+    ports:
+      - "80:80"
+
+volumes:
+  mongo_data:
+
+networks:
+  appnet:
