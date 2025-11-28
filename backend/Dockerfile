@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 # copy package.json first for caching
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm install --only=production
 
 # copy the rest of backend source (relative to build context ./backend)
 COPY . .
