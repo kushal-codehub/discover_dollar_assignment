@@ -4,6 +4,8 @@ services:
     restart: unless-stopped
     volumes:
       - mongo_data:/data/db
+    networks:
+      - appnet
 
   backend:
     image: ${DOCKERHUB_USERNAME}/discover-dollars-backend:latest
